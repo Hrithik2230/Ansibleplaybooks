@@ -1,0 +1,18 @@
+---
+- name: fetch file from managed node
+  hosts: 172.31.15.156
+  tasks:
+    - name: copy file from 172.31.15.156 to controller
+      fetch:
+        src: file111
+        dest: /tmp
+- name: copy file to server2
+  hosts: 172.31.3.19
+  tasks:
+    - name: copy file to server2
+      copy:
+        src: /tmp/172.31.15.156/file111
+        dest: /tmp
+      
+
+...

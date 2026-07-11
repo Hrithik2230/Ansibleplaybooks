@@ -1,0 +1,17 @@
+---
+- name: create users and file/dir on managed nodes
+  hosts: all
+  tasks:
+    - name: create user
+      user:
+        name: "{{a}}"
+        uid: "{{b}}"
+        home: "{{c}}"
+        
+
+    - name: create files
+      file:
+        name: "{{d}}"
+        state: "{{e}}"
+
+...

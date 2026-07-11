@@ -1,0 +1,30 @@
+---
+- name: configuring apache2 on all the managed nodes
+  hosts: all
+  tasks:
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+    - name: Edit the index.html file
+      copy:
+        content: "Vineetha is a bad girl"
+        dest: /var/www/html/index.html
+
+    - name: Restart apache2
+      service: 
+       name: apache2
+       state: restarted
+
+    - name: check apache2 response on server1
+      uri:
+        url: http://172.31.3.19
+        status_code: 200
+
+    - name: Check apache2 response on Server2
+      uri:
+        url: http://172.31.15.156
+        status_code: 200
+
+...
