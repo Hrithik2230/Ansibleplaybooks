@@ -1,0 +1,15 @@
+---
+- name: Installing software applications
+  hosts: all
+  tasks:
+    - name: Installing s/w's
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+
+      with_items:
+        - tree
+        - openjdk-17-jdk
+        - maven
+...

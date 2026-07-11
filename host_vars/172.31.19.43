@@ -1,0 +1,10 @@
+---
+
+a: Ramu
+b: 123456
+c: 1234
+d: /tmp/Ramu
+e: /bin/bash
+f: "A normal user"
+
+...

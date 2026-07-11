@@ -1,0 +1,19 @@
+---
+
+- name: Installing s/w's
+  hosts: all
+  tasks:
+    - name: installing s/w applications
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+
+      with_items:
+        - {a: tree,b: present,c: no}
+        - {a: openjdk-17-jdk,b: absent,c: no}
+        - {a: maven,b: latest,c: yes}
+
+
+
+...

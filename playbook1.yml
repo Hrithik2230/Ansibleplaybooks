@@ -1,6 +1,6 @@
 ---
 - name: Create an user on all managed nodes
-  hosts: all
+  hosts: appserver
   become: true
   tasks:
     - name: Create a user
