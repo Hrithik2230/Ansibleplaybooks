@@ -1,0 +1,22 @@
+---
+- name: check if file1 is present on all servers and delete if it is executable
+  hosts: all
+  tasks:
+    - name: check file1
+      stat:
+        path: /home/ubuntu/file1
+      register: results
+
+    - name: show above module output
+      debug:
+        var: results
+
+    - name: delete the executable file1
+      file:
+        name: /home/ubuntu/file1
+        state: absent
+      when: results.stat.executable == true 
+
+
+
+...
