@@ -1,0 +1,29 @@
+---
+- name: Implementing handlers
+  hosts: all
+  tasks: 
+    - name: installing apache2
+      apt: 
+       name: apache2
+       state: present
+       update_cache: yes
+      notify: check apache2 response
+    - name: edit index.html file
+      copy:
+        content: "Hrithik is the world's best Devops engineer"
+        dest: /var/www/html/index.html
+      notify: restart apache2
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
+    - name: check apache2 response
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.3.19
+        - http://172.31.15.156
+
+...

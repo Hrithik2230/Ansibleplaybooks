@@ -1,0 +1,37 @@
+---
+- name: configuring tomcat10 on all servers
+  hosts: all
+  tasks:
+    - name: install tomcat10
+      apt: 
+       name: "{{item.a}}"
+       state: "{{item.b}}"
+       update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat10,b: present,c: yes}
+        - {a: tomcat10-admin,b: present,c: no}
+    - name: copy files to the servers
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat10
+    - name: change port number of tomcat from 8080 to 9090
+      replace:
+        regexp: 8080
+        replace: 9090
+        path: /etc/tomcat10/server.xml
+    - name: restart tomcat10
+      service: 
+        name: tomcat10
+        state: restarted
+    - name: Pause for 1 minute
+      pause:
+        minutes: 1
+    - name: check tomcat10 response all servers
+      uri:
+        url: "{{item}}"
+      with_items:
+        - http://172.31.3.19:9090
+        - http://172.31.15.156:9090
+
+
+...
