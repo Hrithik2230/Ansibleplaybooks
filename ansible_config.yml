@@ -1,0 +1,19 @@
+---
+- name: configuration of apache2 on all servers
+  hosts: servers
+  become: yes
+  tasks:
+    - name: install apache2 on all servers
+      include_tasks: install.yml
+    - name: edit index.html file
+      include_tasks: editfile.yml
+    - name: restart apache2
+      include_tasks: restart.yml
+    - name: check apache response
+      include_tasks: checkresponse.yml
+
+
+
+
+
+...
