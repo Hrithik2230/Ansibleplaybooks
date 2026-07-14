@@ -1,0 +1,9 @@
+---
+- name: edit server.xml file
+  replace:
+    regexp: "{{i}}"
+    replace: "{{j}}"
+    path: "{{k}}"
+
+
+...

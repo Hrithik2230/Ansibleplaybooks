@@ -1,0 +1,36 @@
+---
+- name: configuring apache2 on all servers
+  hosts: all
+  tasks:
+    - name: install apache2 on ubuntu servers
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+    - name: install httpd on redhat servers
+      yum:
+        name: httpd
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "RedHat"
+    - name: edit index.html file
+      include_tasks: editfile.yml     
+    - name: restart apache2 on ubuntu
+      service: 
+        name: apache2
+        state: restarted
+      when: ansible_distribution == "Ubuntu"
+    - name: restart httpd on redhat server
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_distribution == "RedHat"
+    - name: Pause for 30 sec
+      pause:
+        seconds: 30 
+    - name: check apache2 response on all servers
+      include_tasks: checkresponse.yml
+...
+
+

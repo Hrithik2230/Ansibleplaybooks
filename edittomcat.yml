@@ -1,0 +1,5 @@
+---
+- name: edit tomcat-users.xml
+  copy:
+    src: "{{f}}"
+    dest: "{{g}}"

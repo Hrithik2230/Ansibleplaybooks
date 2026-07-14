@@ -1,0 +1,17 @@
+---
+- name: Configuring tomcat10 using child playbooks and host scope variables
+  hosts: all
+  tasks:
+    - name: configuring tomcat10
+      include_tasks: "{{item}}"
+      with_items:
+         - installtomcat.yml
+         - edittomcat.yml
+         - editservertomcat.yml
+         - restarttomcat.yml
+         - pausetomcat.yml
+         - responsetomcat.yml
+
+
+
+...
